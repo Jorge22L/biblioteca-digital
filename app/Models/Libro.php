@@ -10,8 +10,8 @@ class Libro extends Model
     protected $primaryKey = "libro_id";
     protected $fillable = [
         'titulo','autor','isbn','anio_publicacion',
-        'editorial','cantidad_ejemplares',
-        'ejemplares_disponible','estado','imagen_url'
+        'editorial','categoria','cantidad_ejemplares',
+        'ejemplares_disponibles','estado','imagen_url'
     ];
 
     public function prestamos(){

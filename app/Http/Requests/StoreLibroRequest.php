@@ -11,7 +11,7 @@ class StoreLibroRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,10 +22,16 @@ class StoreLibroRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => 'required|string|max:255',
-            'autor' => 'required|string|max:255',
-            'isbn' => 'required|string|max:32|unique:libros,isbn',
-            'anio_publicacion' => 'nullable|integer|between:1500,' . date('Y'),
+            'titulo'                => 'required|string|max:255',
+            'autor'                 => 'required|string|max:255',
+            'isbn'                  => 'required|string|max:32|unique:libros,isbn',
+            'anio_publicacion'      => 'nullable|integer|between:1500,' . date('Y'),
+            'editorial'             => 'nullable|string|max:255',
+            'categoria'             => 'nullable|string|max:255',
+            'cantidad_ejemplares'   => 'required|integer|min:0',
+            'ejemplares_disponibles' => 'required|integer|min:0',
+            'estado'                => 'in:disponible,agotado,inactivo',
+            'imagen_url'            => 'nullable|string|max:500',
         ];
     }
 }
