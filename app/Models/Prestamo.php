@@ -17,6 +17,11 @@ class Prestamo extends Model
         'estado'
     ];
 
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'usuario_id', 'usuario_id');
+    }
+
     public function libro()
     {
         return $this->belongsTo(Libro::class, 'libro_id', 'libro_id');
