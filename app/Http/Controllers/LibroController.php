@@ -8,10 +8,19 @@ use App\Http\Resources\LibroResource;
 use App\Models\Libro;
 use Illuminate\Http\Request;
 
+
 class LibroController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *   path="/api/libros",
+     *   summary="Listar libros",
+     *   tags={"Libros"},
+     *   @OA\Response(
+     *     response=200,
+     *     description="Listado de libros"
+     *   )
+     * )
      */
     public function index(Request $request)
     {
@@ -28,15 +37,22 @@ class LibroController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *   path="/api/libros",
+     *   summary="Crear libro",
+     *   tags={"Libros"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(
+     *       required={"titulo","autor"},
+     *       @OA\Property(property="titulo", type="string", example="Cien años de soledad"),
+     *       @OA\Property(property="autor", type="string", example="Gabriel García Márquez"),
+     *       @OA\Property(property="anio", type="integer", example=1967)
+     *     )
+     *   ),
+     *   @OA\Response(response=201, description="Libro creado"),
+     *   @OA\Response(response=422, description="Datos inválidos")
+     * )
      */
     public function store(StoreLibroRequest $request)
     {
@@ -45,23 +61,44 @@ class LibroController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *   path="/api/libros/{id}",
+     *   summary="Obtener un libro",
+     *   tags={"Libros"},
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(type="integer")
+     *   ),
+     *   @OA\Response(response=200, description="Libro encontrado"),
+     *   @OA\Response(response=404, description="No encontrado")
+     * )
      */
     public function show(Libro $libro)
     {
         return new LibroResource($libro);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Libro $libro)
-    {
-        //
-    }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *   path="/api/libros/{id}",
+     *   summary="Actualizar libro",
+     *   tags={"Libros"},
+     *   @OA\Parameter(
+     *     name="id", in="path", required=true, @OA\Schema(type="integer")
+     *   ),
+     *   @OA\RequestBody(
+     *     @OA\JsonContent(
+     *       @OA\Property(property="titulo", type="string"),
+     *       @OA\Property(property="autor", type="string"),
+     *       @OA\Property(property="anio", type="integer")
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="Actualizado"),
+     *   @OA\Response(response=404, description="No encontrado")
+     * )
      */
     public function update(UpdateLibroRequest $request, Libro $libro)
     {
@@ -70,7 +107,16 @@ class LibroController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *   path="/api/libros/{id}",
+     *   summary="Eliminar libro",
+     *   tags={"Libros"},
+     *   @OA\Parameter(
+     *     name="id", in="path", required=true, @OA\Schema(type="integer")
+     *   ),
+     *   @OA\Response(response=204, description="Eliminado"),
+     *   @OA\Response(response=404, description="No encontrado")
+     * )
      */
     public function destroy(Libro $libro)
     {
