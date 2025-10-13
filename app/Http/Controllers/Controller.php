@@ -13,6 +13,15 @@ namespace App\Http\Controllers;
  *   url=L5_SWAGGER_CONST_HOST,
  *   description="Servidor local"
  * )
+ *
+ * @OA\Components(
+ *   @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
+ *   )
+ * )
  */
 abstract class Controller
 {
