@@ -14,7 +14,11 @@ class Usuario extends Authenticatable
     public $timestamps = true;
 
     protected $fillable = [
+        'nombre',
+        'apellido',
+        'email',
         'password',
+        'tipo'
     ];
 
     public function setPasswordAttribute($value){
