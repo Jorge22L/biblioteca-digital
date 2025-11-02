@@ -65,7 +65,7 @@ class UsuarioController extends Controller
             ], 401);
         }
 
-        $token = $usuario->createToken('api')->plainTextToken;
+        $token = $usuario->createToken('api', ['*'], now()->addWeek())->plainTextToken;
 
         return response()->json([
             'token' => $token,
